@@ -1,0 +1,17 @@
+{{/* Local override of HugoBlox page_footer.
+     The tags partial is intentionally omitted here — tags are rendered in
+     page_header.html, directly below the article title. */}}
+
+{{ partial "page_edit" . }}
+{{/* page_sharer (Twitter/Facebook/Email/LinkedIn share icons) intentionally
+     omitted — keep the page footer clean for an academic profile. */}}
+{{ partial "page_author" . }}
+{{ partial "comments" . }}
+
+{{ if .Params.pager }}
+<div class="article-widget">
+  {{ partial "components/pager" . }}
+</div>
+{{ end }}
+
+{{ partial "page_related" . }}

@@ -1,0 +1,18 @@
+# Academic serif font preset — Georgia throughout
+# Matches the jemdoc-style academic CV typography (cf. howiehwong.github.io)
+#
+# NOTE: HugoBlox wraps these values in double-quotes at the SCSS layer
+# (see modules/blox-bootstrap/.../assets/scss/main.scss). So each value
+# must be a SINGLE font family name (no commas, no inner quotes).
+# The theme appends ", sans-serif" as fallback automatically.
+# Georgia is universally available across macOS / Windows / iOS / Android
+# so the fallback should never trigger in practice.
+
+name = "Academic Serif"
+
+google_fonts = ""
+
+heading_font = "Georgia"
+body_font    = "Helvetica Neue"
+nav_font     = "Helvetica Neue"
+mono_font    = "Menlo"

@@ -1,0 +1,23 @@
+# Academic Coffee — minimal layout (white background) with desaturated coffee
+# accent for links, hover, active nav state.
+
+name = "Academic Coffee"
+
+[light]
+  # Primary — desaturated coffee tan (used by all active/hover/link states)
+  primary = "#8b7355"
+
+  # Menu
+  menu_primary = "#fff"
+  menu_text = "#34495e"
+  menu_text_active = "#6e5a44"
+  menu_title = "#2b2b2b"
+
+  # Home sections (white / off-white, kept from minimal)
+  home_section_odd = "rgb(255, 255, 255)"
+  home_section_even = "rgb(247, 247, 247)"
+
+[dark]
+  primary = "#c9b39a"
+  link = "#c9b39a"
+  link_hover = "#a08866"

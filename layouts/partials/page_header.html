@@ -1,0 +1,123 @@
+{{/* Local override of HugoBlox page_header. */}}
+{{/* Bumps the default project hero image from a 720px-narrow `article-container`
+     with a 720px source to a wider `container` (max 1290px) with a 2x-Retina
+     source — sharper hero images on every project detail page. */}}
+
+{{ $page := . }}
+{{ $featured := partial "blox-core/functions/get_featured_image.html" $page }}
+
+{{ $anchor := $page.Params.image.focal_point | default "Smart" }}
+
+{{/* Set default titles for node pages */}}
+{{ $title := .Title }}
+{{ if and (not $title) .IsNode }}
+  {{ if eq .Type "post" }}
+    {{ $title = i18n "posts" }}
+  {{ else if eq .Type "event" }}
+    {{ $title = i18n "talks" }}
+  {{ else if eq .Type "publication" }}
+    {{ $title = i18n "publications" }}
+  {{end}}
+{{end}}
+
+{{/* Banner image (unchanged) */}}
+{{ if and .Params.banner.image (not (and $featured (not .Params.image.preview_only))) }}
+<div class="article-header">
+  {{- $img := "" -}}
+  {{ $alt := (.Params.banner.caption | default "") | plainify }}
+  {{ $destination := .Params.banner.image }}
+  {{ $is_remote := strings.HasPrefix $destination "http" }}
+  {{- if not $is_remote -}}
+    {{- $img = (.Page.Resources.ByType "image").GetMatch $destination -}}
+    {{- if not $img -}}
+      {{- $img = resources.Get (path.Join "media" $destination) -}}
+    {{- end -}}
+  {{- end -}}
+  {{ if $img }}
+    <img src="{{$img.RelPermalink}}" width="{{$img.Width}}" height="{{$img.Height}}" class="article-banner" alt="{{$alt}}">
+  {{ else }}
+    <img src="{{ .Params.banner.image }}" class="article-banner" alt="{{$alt}}">
+  {{ end }}
+
+  {{ with .Params.banner.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+</div>
+{{end}}
+
+{{/* Featured image layout — Retina-sharp version */}}
+{{ if and $featured (not .Params.image.preview_only) }}
+
+{{/* Determine image placement and target DISPLAY width. */}}
+{{ $placement := .Params.image.placement | default 1 }}
+{{ $image_container := "" }}
+{{ $display_w := 0 }}
+{{ if eq $placement 2 }}
+  {{ $image_container = "container" }}
+  {{ $display_w = 1290 }}
+{{ else if eq $placement 3 }}
+  {{ $image_container = "container-fluid" }}
+  {{ $display_w = 2560 }}
+{{ else }}
+  {{/* Default placement (1) — match body's `.article-container` width
+       (760px max, content area ≈720px) so the hero image and the article
+       prose share the same column. Source generated at 2x for Retina. */}}
+  {{ $image_container = "article-container" }}
+  {{ $display_w = 720 }}
+{{ end }}
+
+{{/* Generate source at 2x the display width for Retina/HiDPI sharpness. */}}
+{{ $source_w := mul $display_w 2 }}
+{{ $image := $featured.Fit (printf "%dx%d" $source_w 5000) }}
+{{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp q90" }}{{ end }}
+
+{{/* Compute display height from the (2x) source height. */}}
+{{ $display_h := div $image.Height 2 }}
+
+<div class="article-container pt-3">
+  <h1>{{ $title }}</h1>
+
+  {{ with $page.Params.subtitle }}
+  <p class="page-subtitle">{{ . | markdownify | emojify }}</p>
+  {{end}}
+
+  {{/* Date metadata + tags on a single row, date first */}}
+  <div class="article-meta-row">
+    {{ partial "page_metadata" (dict "page" $page "is_list" 0 "share" true) }}
+    {{ partial "tags" . }}
+  </div>
+
+  {{ partial "page_links_div.html" $page }}
+</div>
+
+{{/* Featured image */}}
+<div class="article-header {{$image_container}} featured-image-wrapper mt-4 mb-4" style="max-width: {{$display_w}}px; max-height: {{$display_h}}px;">
+  <div style="position: relative">
+    <img src="{{ $image.RelPermalink }}" width="{{ $display_w }}" height="{{ $display_h }}" alt="{{ with $.Params.image.alt_text }}{{.}}{{ end }}" class="featured-image">
+    {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+  </div>
+</div>
+{{else}}
+  {{/* Case when page has no image */}}
+
+  {{/* Wider container for nodes */}}
+  {{ $ctnr := "article-container" }}
+  {{ if $page.IsNode }}
+    {{ $ctnr = "universal-wrapper" }}
+  {{end}}
+<div class="{{$ctnr}} pt-3">
+  <h1>{{ $title }}</h1>
+
+  {{ with $page.Params.subtitle }}
+  <p class="page-subtitle">{{ . | markdownify | emojify }}</p>
+  {{end}}
+
+  {{ if not .IsNode }}
+    {{/* Date metadata + tags on a single row, date first */}}
+    <div class="article-meta-row">
+      {{ partial "page_metadata" (dict "page" $page "is_list" 0 "share" true) }}
+      {{ partial "tags" . }}
+    </div>
+
+    {{ partial "page_links_div.html" $page }}
+  {{end}}
+</div>
+{{end}}

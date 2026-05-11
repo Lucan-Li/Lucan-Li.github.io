@@ -1,0 +1,222 @@
+{{/* Local override of HugoBlox Experience block. */}}
+{{/* Adds support for an optional `date_label` field per item: when set, */}}
+{{/* it replaces the auto-generated "date_start – date_end | Present" range. */}}
+
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $columns := $block.design.columns | default "1" }}
+
+<div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
+  {{ with $block.content.text }}{{ . | emojify | $page.RenderString }}{{ end }}
+
+  {{ if $block.content.items }}
+  {{ $exp_len := len $block.content.items }}
+
+  {{ range $idx, $key := $block.content.items }}
+  <div class="row experience">
+    <!-- Timeline (visually hidden via custom.scss; kept as a layout spacer) -->
+    <div class="col-auto text-center flex-column d-none d-sm-flex">
+      <div class="row h-50">
+        <div class="col {{if gt $idx 0}}border-right{{end}}">&nbsp;</div>
+        <div class="col">&nbsp;</div>
+      </div>
+      <div class="m-2">
+        <span class="badge badge-pill border {{if and (not .date_end) (not .date_label)}}exp-fill{{end}}">&nbsp;</span>
+      </div>
+      <div class="row h-50">
+        <div class="col {{if lt $idx (sub $exp_len 1)}}border-right{{end}}">&nbsp;</div>
+        <div class="col">&nbsp;</div>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="col py-2">
+      <div class="card">
+        <div class="card-body">
+
+          {{/* Support two YAML forms:
+                 - `figure: filename.png` (single image)
+                 - `figures: [a.png, b.png]` (slideshow + lightbox gallery) */}}
+          {{- $figure_list := slice -}}
+          {{- with .figures -}}
+            {{- range . -}}
+              {{- $img := resources.Get (printf "media/experience/%s" .) -}}
+              {{- if not $img }}{{ errorf "Experience figure not found at `assets/media/experience/%s`" . }}{{ end -}}
+              {{- $figure_list = $figure_list | append $img -}}
+            {{- end -}}
+          {{- else with .figure -}}
+            {{- $img := resources.Get (printf "media/experience/%s" .) -}}
+            {{- if not $img }}{{ errorf "Experience figure not found at `assets/media/experience/%s`" . }}{{ end -}}
+            {{- $figure_list = $figure_list | append $img -}}
+          {{- end -}}
+
+          {{- if gt (len $figure_list) 0 }}
+          <div class="d-flex flex-column flex-md-row exp-figure-row">
+            <div class="exp-figure-cell mb-3 mb-md-0" data-image-count="{{ len $figure_list }}">
+              {{- if gt (len $figure_list) 1 }}
+              <div class="exp-slideshow">
+                {{- range $i, $img := $figure_list }}
+                <img class="exp-slide-img{{ if eq $i 0 }} exp-slide-active{{ end }}"
+                     src="{{ $img.RelPermalink }}"
+                     alt="{{ with $.figure_alt }}{{ . }}{{ else }}{{ $.title | plainify }} figure {{ add $i 1 }}{{ end }}"
+                     loading="lazy">
+                {{- end }}
+              </div>
+              {{- else }}
+              {{- $img := index $figure_list 0 }}
+              <img src="{{ $img.RelPermalink }}" alt="{{ with .figure_alt }}{{ . }}{{ else }}{{ .title | plainify }} figure{{ end }}" loading="lazy">
+              {{- end }}
+            </div>
+            <div class="exp-content-cell">
+          {{- end }}
+
+          {{- if .company_logo}}
+          {{- $svg_icon := resources.Get (printf "media/icons/brands/%s.svg" .company_logo) -}}
+          {{ if not $svg_icon }}{{ errorf "Brand logo not found at `assets/media/icons/brands/%s.svg`" .company_logo }}{{end}}
+          <div class="d-flex align-content-start">
+            <div class="mr-2 mb-2">
+              {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end -}}
+              <img src="{{ $svg_icon.RelPermalink }}" width="56" height="56" alt="{{.company | plainify}}" loading="lazy">
+              {{- with .company_url}}</a>{{end -}}
+            </div>
+            <div>
+          {{ end }}
+
+              <div class="section-subheading card-title exp-title text-muted my-0">{{.title | markdownify | emojify}}</div>
+              <div class="section-subheading card-title exp-company text-muted my-0">
+                {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.company | markdownify | emojify}}{{with .company_url}}</a>{{end -}}
+              </div>
+              <div class="text-muted exp-meta">
+                {{ if .date_label }}
+                  {{ .date_label | markdownify }}
+                {{ else }}
+                  {{ (time .date_start) | time.Format ($block.Params.date_format | default "January 2006") }} –
+                  {{ if .date_end}}
+                    {{ (time .date_end) | time.Format ($block.Params.date_format | default "January 2006") }}
+                  {{else}}
+                    {{ i18n "present" | default "Present" }}
+                  {{end}}
+                {{ end }}
+                {{with .location}}
+                  <span class="middot-divider"></span>
+                  <span>{{.}}</span>
+                {{end}}
+              </div>
+
+          {{- if .company_logo}}
+            </div>
+          </div>
+          {{end}}
+
+          {{with .description}}<div class="card-text">{{. | markdownify | emojify}}</div>{{end}}
+
+          {{- if gt (len $figure_list) 0 }}
+            </div><!-- /exp-content-cell -->
+          </div><!-- /exp-figure-row -->
+          {{- end }}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{end}}
+  {{end}}
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  // JS-side single-load guard (the experience block partial renders twice on the
+  // /experience/ page — once for Research, once for Professional — but the
+  // initialization below scans the whole document, so it only needs to run once).
+  if (window.__expFiguresInit) return;
+  window.__expFiguresInit = true;
+
+  // ── Slideshow: cycle .exp-slide-img inside each .exp-slideshow every 5s ──
+  document.querySelectorAll('.exp-slideshow').forEach(function(slideshow){
+    var slides = slideshow.querySelectorAll('.exp-slide-img');
+    if (slides.length < 2) return;
+    var idx = 0;
+    var timer = null;
+    function next(){
+      slides[idx].classList.remove('exp-slide-active');
+      idx = (idx + 1) % slides.length;
+      slides[idx].classList.add('exp-slide-active');
+    }
+    function start(){ timer = setInterval(next, 5000); }
+    function stop(){ if (timer) { clearInterval(timer); timer = null; } }
+    slideshow.addEventListener('mouseenter', stop);
+    slideshow.addEventListener('mouseleave', start);
+    start();
+  });
+
+  // ── Lightbox: open on click of any .exp-figure-cell ──
+  document.querySelectorAll('.exp-figure-cell').forEach(function(cell){
+    var imgs = cell.querySelectorAll('img');
+    if (imgs.length === 0) return;
+    var sources = Array.prototype.map.call(imgs, function(img){
+      return { src: img.src, alt: img.alt };
+    });
+    cell.addEventListener('click', function(){
+      var startIdx = 0;
+      var slideshow = cell.querySelector('.exp-slideshow');
+      if (slideshow) {
+        var active = slideshow.querySelector('.exp-slide-img.exp-slide-active');
+        if (active) {
+          startIdx = Array.prototype.indexOf.call(slideshow.querySelectorAll('.exp-slide-img'), active);
+        }
+      }
+      openLightbox(sources, startIdx);
+    });
+  });
+
+  function openLightbox(sources, startIdx){
+    var hasGallery = sources.length > 1;
+    var overlay = document.createElement('div');
+    overlay.className = 'exp-lightbox-overlay';
+    var iconClose = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6L18 18M18 6L6 18"/></svg>';
+    var iconPrev  = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6L9 12L15 18"/></svg>';
+    var iconNext  = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6L15 12L9 18"/></svg>';
+    overlay.innerHTML =
+      '<button class="exp-lb-close" aria-label="Close">' + iconClose + '</button>' +
+      (hasGallery ? '<button class="exp-lb-prev" aria-label="Previous">' + iconPrev + '</button>' : '') +
+      '<img class="exp-lb-img" alt="">' +
+      (hasGallery ? '<button class="exp-lb-next" aria-label="Next">' + iconNext + '</button>' : '') +
+      (hasGallery ? '<div class="exp-lb-counter"></div>' : '');
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+
+    var idx = startIdx;
+    var imgEl = overlay.querySelector('.exp-lb-img');
+    var counter = overlay.querySelector('.exp-lb-counter');
+
+    function show(i){
+      idx = (i + sources.length) % sources.length;
+      imgEl.src = sources[idx].src;
+      imgEl.alt = sources[idx].alt || '';
+      if (counter) counter.textContent = (idx + 1) + ' / ' + sources.length;
+    }
+    function close(){
+      overlay.classList.remove('exp-lb-visible');
+      setTimeout(function(){
+        overlay.remove();
+        document.body.style.overflow = '';
+      }, 200);
+      document.removeEventListener('keydown', onKey);
+    }
+    function onKey(e){
+      if (e.key === 'Escape') close();
+      else if (hasGallery && e.key === 'ArrowLeft') show(idx - 1);
+      else if (hasGallery && e.key === 'ArrowRight') show(idx + 1);
+    }
+    overlay.addEventListener('click', function(e){ if (e.target === overlay) close(); });
+    overlay.querySelector('.exp-lb-close').addEventListener('click', close);
+    if (hasGallery) {
+      overlay.querySelector('.exp-lb-prev').addEventListener('click', function(){ show(idx - 1); });
+      overlay.querySelector('.exp-lb-next').addEventListener('click', function(){ show(idx + 1); });
+    }
+    document.addEventListener('keydown', onKey);
+    show(idx);
+    requestAnimationFrame(function(){ overlay.classList.add('exp-lb-visible'); });
+  }
+})();
+</script>

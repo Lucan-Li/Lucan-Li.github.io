@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Pre-prints under review at CSCW 2026 — keep out of search indices to avoid
+# de-anonymizing the author during double-blind review. Remove this Disallow
+# rule once papers are accepted / published.
+Disallow: /papers/
