@@ -1,7 +1,9 @@
 User-agent: *
 Allow: /
 
-# Pre-prints under review at CSCW 2026 — keep out of search indices to avoid
-# de-anonymizing the author during double-blind review. Remove this Disallow
-# rule once papers are accepted / published.
+# Under-review at CSCW 2026 — keep paper titles and identifying artifacts out
+# of search indices to avoid de-anonymizing the author during double-blind
+# review. Remove these Disallow rules once papers are accepted / published.
 Disallow: /papers/
+Disallow: /experience/
+Disallow: /uploads/
