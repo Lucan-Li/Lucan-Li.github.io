@@ -14,7 +14,7 @@ sections:
       date_format: Jan 2006
       items:
         - title: Independent Qualitative Research Project
-          company: Sole author; submissions **under review** at CSCW 2026
+          company: Sole author; poster **under review** at CSCW 2026
           company_url: ''
           location: ''
           date_start: '2024-12-01'
@@ -22,10 +22,7 @@ sections:
           date_label: 'submitted May 2026'
           figures:
             - 'visibility-asymmetry-mechanism.png'
-            - 'cscw-tier-model.png'
           description: |
-            **Working Around the "Smart" Classroom: Teachers and On-site Staff as Infrastructure Repair Workers in a Chinese K–12 EdTech Deployment**<br>[Full paper] *Proceedings of the ACM on Human-Computer Interaction (CSCW)* &nbsp; <a class="exp-paper-link" href="/papers/LucanLi-2026-SmartClassroomRepair-CSCW-Preprint.pdf" target="_blank" rel="noopener noreferrer">Read pre-print</a>
-
             **Visibility Asymmetry: How Vendor Attention Shapes Which EdTech Breakdowns Become Product-Visible**<br>[Poster] *CSCW 2026 Companion / Posters Track* &nbsp; <a class="exp-paper-link" href="/papers/LucanLi-2026-VisibilityAsymmetry-CSCW-Poster.pdf" target="_blank" rel="noopener noreferrer">Read poster</a>
 
             <details class="exp-details">
