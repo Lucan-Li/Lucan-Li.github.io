@@ -20,6 +20,8 @@ sections:
           date_start: '2026-05-01'
           date_end: ''
           date_label: 'submitted August 2026'
+          figures:
+            - 'calmbridge-repair-flow.png'
           description: |
             **CalmBridge: Designing AI Support During and After Parent–Adolescent Conflict**<br>[Poster] *14th International Conference on Human-Agent Interaction (HAI '26)*
 
