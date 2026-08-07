@@ -149,6 +149,17 @@
   </div>
   {{ end }}
 
+  {{ with $block.content.publications }}
+  <div class="about-strip">
+    <span class="about-strip-label">Publications</span>
+    <div class="about-strip-content about-strip-content--stacked">
+      {{ range . }}
+      <div class="about-strip-item">{{ . | markdownify | emojify }}</div>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
   {{ with $block.content.news }}
   <div class="about-strip">
     <span class="about-strip-label">News</span>
