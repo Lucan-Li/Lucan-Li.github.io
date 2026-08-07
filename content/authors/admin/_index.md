@@ -1,6 +1,6 @@
 ---
 title: Lucan Li
-role: 'HCI / qualitative researcher'
+role: 'Design researcher'
 location: 'Indiana, USA'
 email: 'lilucan1127@gmail.com'
 bio: ''
@@ -34,4 +34,8 @@ superuser: true
 highlight_name: true
 ---
 
-I am preparing to apply for PhD programs in Human-Computer Interaction / Interaction Design in the US. My background combines design training — an M.F.A. in Visual Communication Design from Lanzhou University and a B.Eng. in Industrial Design from Hunan University — with industry experience as a Product Manager in K-12 educational technology at **iFlytek** and on the **xnote** handwriting note-taking application at Jingtan Tech.
+I'm interested in how AI is entering family life — specifically, what happens when it takes part in the conflicts between parents and teenagers that recur in ordinary households.
+
+The question came from two directions at once: watching my younger sister's teenage years, and sixteen months inside a Chinese EdTech company, where I saw products built for classrooms arrive in homes as parent dashboards and turn into evening arguments. What holds my attention is that AI enters this as a third party neither generation has prior expertise with, speaking in a register that belongs to neither — and whether that unfamiliarity can reopen conversations habit or hierarchy have closed.
+
+I am applying to PhD programs in HCI / Interaction Design for Fall 2027; my background is in design and product work.
