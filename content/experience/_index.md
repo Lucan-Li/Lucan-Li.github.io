@@ -67,10 +67,8 @@ sections:
             <details class="exp-details">
             <summary>More</summary>
 
-            - — 10-person team under Prof. Tie Ji (PI) and Associate Prof. Yonghong Liu (project lead)
-            - — 3 months embedded at a Liling ceramics research base, executing the full design-research pipeline: concept exploration → 3D-printing affordance mapping → form/color trial → digital modeling → equipment calibration → print iteration → bisque firing → glazing
-            - — Reviewed 5 ceramic 3D-printing techniques (FDM, SLS, SLA, IJP, LOM); selected FDM paste extrusion as the working method
-            - — Iterative form experiments translating Dong-minority brocade patterns into 8 geometric variants; documented failure modes (clay-humidity sensitivity, extrusion discontinuity, firing-induced collapse/cracking)
+            - — 10-person team under Prof. Tie Ji (PI) and Associate Prof. Yonghong Liu (project lead); 3 months embedded at a Liling ceramics research base
+            - — Ran iterative form experiments translating Dong-minority brocade patterns into 8 geometric variants, documenting failure modes across the full digital-to-fired pipeline
             - — **Co-inventor of granted design patent** "Ceramic Storage Box" (ZL 2019 3 0546643.X); project received Merit Prize at the Malanshan Cultural Creativity Competition
 
             </details>

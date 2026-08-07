@@ -10,11 +10,11 @@ organizations:
     url: ''
 
 interests:
-  - Human-Computer Interaction
+  - Human–Computer Interaction
   - AI Mediation
-  - Adolescent Learning & Family
-  - Mediation Labor
+  - Parent–Adolescent & Family Communication
   - Qualitative & Design-based Research
+  - Design Ethics
 
 education:
   courses:
@@ -25,7 +25,10 @@ education:
       institution: Hunan University
       year: 2019
 
-social: []
+social:
+  - icon: github
+    icon_pack: fab
+    link: https://github.com/Lucan-Li
 
 superuser: true
 highlight_name: true
