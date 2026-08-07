@@ -18,6 +18,6 @@ sections:
         - 'May 2021 – Jul 2021 · Design Intern, Canaan'
         - 'Jun 2019 – Jun 2020 · Product Documentation Manager, SANY Heavy Industry'
       news:
-        - '**May 2026** — Submitted a poster to **CSCW 2026 Companion** (under review).'
+        - '**Aug 2026** — Submitted a poster to **HAI 2026** (under review).'
         - '**March 2026** — Achieved IELTS Academic overall band 7.5.'
 ---
