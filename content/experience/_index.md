@@ -51,7 +51,7 @@ sections:
             <summary>More</summary>
 
             - — Built on professional experience across eight K–12 schools to ask why classroom breakdowns and local workarounds reach product teams unevenly
-            - — Reviewed CSCW and HCI literature on infrastructure, repair, articulation work, and teacher-centred educational technology
+            - — Reviewed HCI and sociotechnical systems literature on infrastructure, repair, articulation work, and teacher-centered educational technology
             - — Developed *visibility asymmetry* as a tentative conceptual lens for examining how organizational attention and feedback routes shape which breakdowns become actionable
             - — Reframed technology use from isolated feature adoption toward the human coordination and repair work that sustains deployed systems
             - — Outlined a future empirical study of organizational feedback routes using prospective recruitment, informed consent, and institutional ethics review
