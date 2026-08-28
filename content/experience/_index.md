@@ -43,6 +43,7 @@ sections:
           date_start: '2024-12-01'
           date_end: '2026-05-31'
           date_label: 'Dec 2024 – May 2026'
+          figure: 'visibility-asymmetry-mechanism.png'
           description: |
             **Visibility Asymmetry: How Vendor Attention Shapes Which EdTech Breakdowns Become Product-Visible**<br>[Independent conceptual research project]
 
