@@ -1,9 +1,2 @@
 User-agent: *
 Allow: /
-
-# Under double-blind review at HAI 2026 (decision expected 28 Aug 2026) — keep
-# paper titles and identifying artifacts out of search indices to avoid
-# de-anonymizing the author. Remove these Disallow rules once the decision is in.
-Disallow: /papers/
-Disallow: /experience/
-Disallow: /uploads/

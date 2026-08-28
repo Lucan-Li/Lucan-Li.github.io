@@ -14,24 +14,25 @@ sections:
       date_format: Jan 2006
       items:
         - title: Independent Design Research Project
-          company: Sole author; poster **under review** at HAI 2026
+          company: Independent research · Sole researcher
           company_url: ''
           location: ''
           date_start: '2026-05-01'
           date_end: ''
-          date_label: 'submitted August 2026'
+          date_label: 'May 2026 – Present'
           figures:
             - 'calmbridge-repair-flow.png'
           description: |
-            **CalmBridge: Designing AI Support During and After Parent–Adolescent Conflict**<br>[Poster] *14th International Conference on Human-Agent Interaction (HAI '26)*
+            **CalmBridge: Designing AI Support During and After Parent–Adolescent Conflict**<br>[Independent design research project]
 
             <details class="exp-details">
             <summary>More</summary>
 
             - — Reframed the design goal for AI in family conflict from *ending* disagreement to *detoxifying its aftermath* — reducing escalation while supporting private sense-making and selective repair
-            - — Built a scenario-based interactive prototype spanning a shared public terminal, private phone reviews, and an opt-in shared space, organised around three design lenses: Presence, Channel, and Repair
-            - — Ran remote scenario-based walkthroughs (65–102 min) with four young adults recalling adolescent conflict in Chinese families; reflexive thematic analysis with the three lenses as sensitising concepts, reported with an explicit negative case
-            - — Derived boundary conditions for each lens — including that identical review content changes meaning with the channel that carries it, and that repair tools presuppose a relationship its members still want to hold open
+            - — Built a scenario-based interactive prototype spanning a shared public terminal, private phone reviews, and an opt-in shared space
+            - — Ran remote scenario-based walkthroughs (65–102 min) with four young adults recalling adolescent conflict in Chinese families
+            - — Synthesized each transcript into a participant-level summary, then compared cases for convergences, divergences, and negative cases
+            - — Used this exploratory analysis to articulate three design lenses — Presence, Channel, and Repair — and provisional boundary conditions for AI-supported reflection and repair
 
             </details>
 
